@@ -1,0 +1,121 @@
+<section id="contact">
+  <div class="container-lg text-center">
+    <h2>Contact New :</h2> <h4><i class="bi bi-chat-left-fill"></i></h4>
+    <p class="lead">Questions to ask? Fill out the form to contact me directly....</p>
+  </div>
+  <div class="row justify-content-center my-5">
+    <div class="col-lg-6">
+      <form (ngSubmit)="save()">
+        <label for="code" class="form-label">Enter  code apoges:</label>
+        <div class="mb-4 input-group">
+          <span class="input-group-text">
+            <i class="bi bi-code-slash"></i>
+          </span>
+          <input type="email" class="form-control" id="code"  name="code" [(ngModel)]="item.code"  [ngModelOptions]="{standalone: true}" required>
+          <span class="input-group-text">
+            <span class="tt" data-bs-placement="bottom" title="enter your email">
+              <i class="bi bi-question-circle"></i>
+            </span>
+          </span>
+        </div>
+
+
+
+        <label for="email" class="form-label">Email address:</label>
+        <div class="mb-4 input-group">
+          <span class="input-group-text">
+            <i class="bi bi-envelope-fill"></i>
+          </span>
+          <input type="email" class="form-control" id="email"  name="email" [(ngModel)]="item.email" [ngModelOptions]="{standalone: true}" required>
+          <span class="input-group-text">
+            <span class="tt" data-bs-placement="bottom" title="enter your email">
+              <i class="bi bi-question-circle"></i>
+            </span>
+          </span>
+        </div>
+        <label for="name" class="form-label">Name:</label>
+        <div class="input-group mb-4">
+          <span class="input-group-text">
+            <i class="bi bi-person-fill"></i>
+          </span>
+          <input type="text" class="form-control" id="name"  name="name" [(ngModel)]="item.name" [ngModelOptions]="{standalone: true}" required>
+          <span class="input-group-text">
+            <span class="tt" data-bs-placement="bottom" title="enter your Name">
+              <i class="bi bi-question-circle text-muted"></i>
+            </span>
+          </span>
+        </div>
+
+        <label for="prenom" class="form-label">Prenom:</label>
+        <div class="input-group mb-4">
+          <span class="input-group-text">
+            <i class="bi bi-person-fill"></i>
+          </span>
+          <input type="text" class="form-control" id="prenom"  name="prenom" [(ngModel)]="item.prenom" [ngModelOptions]="{standalone: true}" required>
+          <span class="input-group-text">
+            <span class="tt" data-bs-placement="bottom" title="enter your Name">
+              <i class="bi bi-question-circle text-muted"></i>
+            </span>
+          </span>
+        </div>
+
+        <label for="number" class="form-label">Number:</label>
+        <div class="input-group mb-4">
+          <span class="input-group-text">
+            <i class="bi bi-phone-fill"></i>
+          </span>
+          <input type="text" class="form-control" id="number"  name="number" [(ngModel)]="item.number" [ngModelOptions]="{standalone: true}" required>
+          <span class="input-group-text">
+            <span class="tt" data-bs-placement="bottom" title="enter your Name">
+              <i class="bi bi-question-circle text-muted"></i>
+            </span>
+          </span>
+        </div>
+
+        <label for="subject" class="form-label">What is your question about? What is your educational level?</label>
+        <div class="input-group">
+          <span class="input-group-text">
+            <i class="bi bi-chat-right-dots-fill"></i>
+          </span>
+          <select id="subject" class="form-select"  [(ngModel)]="item.educational" [ngModelOptions]="{standalone: true}" required>
+            <option value="bac">bac</option>
+            <option value="bac+1">bac+1</option>
+            <option value="bac+2">bac+2</option>
+            <option value="bac+3">bac+3</option>
+            <option value="bac+5">bac+5</option>
+          </select>
+
+        </div>
+
+        <div class="form-floating mt-4 mb-4">
+          <textarea id="query" class="form-control" cols="50" rows="30" ></textarea>
+          <label for="query">message...</label>
+        </div>
+        <div class="m-4 text-center">
+          <div class="row">
+            <button type="submit" class="btn btn-outline-info col-4 m-4"  (click)="supprimet()" >Envoyer</button>
+            <button type="button" class="btn btn-outline-danger col-4 m-4"  (click)="get()">Get</button>
+          </div>
+
+        </div>
+        <ul *ngFor="let itme of items">
+          <li>{{itme.name}}</li>
+          <li>{{itme.email}}</li>
+          <li>{{itme.number}}</li>
+          <hr class="bi-hr">
+        </ul>
+      </form>
+    </div>
+  </div>
+  <div class="alert alert-success" role="alert" *ngIf="_ok">
+    This is a success alert—check it out!
+  </div>
+
+</section>
+
+<script>
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('.tt'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+  })
+</script>
