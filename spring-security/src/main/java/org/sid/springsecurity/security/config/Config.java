@@ -37,8 +37,8 @@ public class Config extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.headers().frameOptions().disable();
         http.authorizeRequests().antMatchers(HttpMethod.POST, "/usrers/**").hasAuthority("ADMIN");
-//       http.authorizeRequests().antMatchers(HttpMethod.GET,"/usrers/**").hasAuthority("USER");
-        http.authorizeRequests().antMatchers("/h2-console/","/refreshToken/**","/login/**").permitAll();
+       http.authorizeRequests().antMatchers(HttpMethod.GET,"/usrers/**").hasAuthority("USER");
+        http.authorizeRequests().antMatchers("/h2-console/","http://localhost:9090/refreshToken/","/login/").permitAll();
 //        http.formLogin();
         http.authorizeHttpRequests().anyRequest().authenticated();
         http.addFilter(new JwtAuthenticationFilter(authenticationManagerBean()));

@@ -27,18 +27,17 @@ import java.util.stream.Collectors;
 
 @RestController
 public class AccountRestController {
-    @PostMapping("/usrers")
+    @PostMapping("/user")
     @PostAuthorize("hasAnyAuthority('ADMIN')")
     public AppUser addNewUser(@RequestBody AppUser appUser) {
         return accountService.addNewUser(appUser);
     }
 
     @PostAuthorize("hasAnyAuthority('ADMIN')")
-    @PostMapping("/roles")
+    @PostMapping("/role")
     public AppRole addNewRole(@RequestBody AppRole appRole) {
         return accountService.addNewRole(appRole);
     }
-
 
     @PostAuthorize("hasAnyAuthority('ADMIN')")
     @PostMapping("/addRoleToUser")
@@ -50,8 +49,8 @@ public class AccountRestController {
         return accountService.loadUserByUsername(username);
     }
 
-    @GetMapping("/usrers")
-    @PostAuthorize("hasAnyAuthority('USER')")
+    @GetMapping("/user")
+    @PostAuthorize("hasAnyAuthority('ADMIN')")
     public List<AppUser> listUsers() {
         return accountService.listUsers();
     }
@@ -62,7 +61,8 @@ public class AccountRestController {
         this.accountService = accountService;
     }
 
-    @GetMapping("/refreshToken")
+
+    @GetMapping("/refreshToken/")
     public void refreshToken(HttpServletRequest request,HttpServletResponse response) throws IOException {
         String authenticationTken=request.getHeader("Authorization");
         if(authenticationTken!=null && authenticationTken.startsWith("Bearer")){
@@ -77,14 +77,14 @@ public class AccountRestController {
 
                 String jwtAccessToken= JWT.create()
                         .withSubject(appUser.getUsername())
-                        .withExpiresAt(new Date(System.currentTimeMillis()+5*60*1000))
+                        .withExpiresAt(new Date(System.currentTimeMillis()+1*60*1000))
                         .withIssuer(request.getRequestURL().toString())
                         .withClaim("roles", appUser.getAppRols().stream().map(r->r.getRoleName()).collect(Collectors.toList()))
                         .sign(algorithm);
 
                 Map<String, String> tokenMap = new HashMap<>();
                 tokenMap.put("refreshToken", jwt);
-                tokenMap.put("new accessToken", jwtAccessToken);
+                tokenMap.put("new accessToken",jwtAccessToken);
                 ObjectMapper objectMapper = new ObjectMapper();
                 String tokensJson = objectMapper.writeValueAsString(tokenMap);
 
